@@ -83,6 +83,8 @@ void leds_turn_off_all(uint16_t * puerto);
  */
 int leds_on_verify(int led);
 
+void leds_turn_on_leds_off(uint16_t * puerto);
+
 #ifdef __cplusplus
 }
 #endif
