@@ -40,6 +40,7 @@
 
 /********************** inclusions *******************************************/
 #include <stdint.h>
+#include <stdbool.h>
 /********************** cabecera c++ *******************************************/
 
 #ifdef __cplusplus
@@ -81,9 +82,19 @@ void leds_turn_off_all(uint16_t * puerto);
  *
  * @param led Número del led a verificar
  */
-int leds_on_verify(int led);
-
+bool leds_on_verify(int led);
+/**
+ * @brief   Prende todos los leds que se encuentran apagados
+ *
+ * @param puerto Dirección del puerto que se usará
+ */
 void leds_turn_on_leds_off(uint16_t * puerto);
+/**
+ * @brief   Apaga todos los leds que se encuentran encendidos
+ *
+ * @param puerto Dirección del puerto que se usará
+ */
+void leds_turn_off_leds_on(uint16_t * puerto);
 
 #ifdef __cplusplus
 }

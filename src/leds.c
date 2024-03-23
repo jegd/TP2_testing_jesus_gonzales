@@ -71,15 +71,23 @@ void leds_turn_off_all(uint16_t * puerto){
     *puntero=ALL_LED_OFF;
 }
 
-int leds_on_verify(int led){
-    return led_to_mask(led)==*puntero;
+bool leds_on_verify(int led){
+    return led_to_mask(led)==(led_to_mask(led)&(*puntero));
 }
 
 void leds_turn_on_leds_off(uint16_t * puerto){
     static uint16_t led; 
-    for(led=0;led<=sizeof(uint16_t)*BYTE;led++){
+    for(led=0;led<=sizeof(*puntero)*BYTE;led++){
         if(!leds_on_verify(led))
-        *puntero|=led_to_mask(led);
+        leds_turn_on(led);
+    }
+}
+
+void leds_turn_off_leds_on(uint16_t * puerto){
+    static uint16_t led; 
+    for(led=0;led<=sizeof(*puntero)*BYTE;led++){
+        if(leds_on_verify(led))
+        leds_turn_off(led);
     }
 }
 /********************** end of file ******************************************/

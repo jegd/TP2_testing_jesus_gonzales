@@ -1,5 +1,4 @@
 /*
-Apagar todos los leds que ya estan prendidos
 Prender leds que ya esten prendidos antes
 Apagar leds que ya esten apagados
 Comprobar valores prohibidos
@@ -8,6 +7,7 @@ Comprobar los valores límite
 
 #include "unity.h"
 #include "leds.h"
+#include <stdbool.h>
 
 static uint16_t leds_virtuales;
 static const int LED=3;
@@ -61,7 +61,7 @@ void test_prender_y_apagar_varios_leds(void){
 //Con todos los leds apagados prender un led y verificar que al
 //consultar el estado del mismo se informa que está prendido
 void test_prender_todos_los_leds_apagados_y_verificar(void){
-    int verificacion_led;
+    bool verificacion_led;
     leds_turn_off_all(&leds_virtuales);
     leds_turn_on(5);
     verificacion_led = leds_on_verify(5);
@@ -78,4 +78,14 @@ void test_prender_todos_los_leds_apagados(void){
 
     TEST_ASSERT_EQUAL_UINT16(0b1111111111111111,leds_virtuales);
 
+}
+
+//Apagar todos los leds que ya estan prendidos
+void test_apagar_todos_los_leds_prendidos(void){
+    leds_turn_on(6);
+    leds_turn_on(5);
+    leds_turn_on(9);
+    leds_turn_off_leds_on(&leds_virtuales);
+
+    TEST_ASSERT_EQUAL_UINT16(0x0000,leds_virtuales);
 }
