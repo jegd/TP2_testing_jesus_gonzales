@@ -1,5 +1,5 @@
 /*
-Con todos los leds apagados prender un led y verificar que al consultarlo el estado es el mismo en info
+
 Prender todos los leds que están apagados antes de al operación
 Apagar todos los leds que ya estan prendidos
 Prender leds que ya esten prendidos antes
@@ -56,5 +56,17 @@ void test_prender_y_apagar_varios_leds(void){
     leds_turn_off(5);
     leds_turn_off(9);
 
-    TEST_ASSERT_EQUAL_UINT16((1<<(7-1)), leds_virtuales);
+    TEST_ASSERT_EQUAL_UINT16((1<<(7-1))
+    , leds_virtuales);
+}
+
+//Con todos los leds apagados prender un led y verificar que al
+//consultar el estado del mismo se informa que está prendido
+void test_prender_todos_los_leds_apagados_y_verificar(void){
+    int verificacion_led;
+    leds_turn_off_all(&leds_virtuales);
+    leds_turn_on(5);
+    verificacion_led = leds_on_verify(5);
+
+    TEST_ASSERT_EQUAL_UINT16(1, verificacion_led);
 }
